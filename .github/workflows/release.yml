@@ -39,5 +39,6 @@ jobs:
         with:
           files: 'static.tar.gz'
           repo-token: ${{ secrets.TOKEN }}
+          release-tag: ${{ github.ref }}
 
 
