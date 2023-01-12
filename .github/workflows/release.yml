@@ -34,11 +34,11 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-      - name: upload
-        uses: AButler/upload-release-assets@v2.0
+      - name: Upload release binaries
+        uses: alexellis/upload-assets@0.4.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
-          files: 'static.tar.gz'
-          repo-token: ${{ secrets.TOKEN }}
-          release-tag: ${{ github.ref }}
+          asset_paths: '[static.tar.gz]'
 
 
