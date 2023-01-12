@@ -23,12 +23,15 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm build:front
           tar -zcvf static.tar.gz ./static/
+          zip -r static.zip ./static/
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: static.tar.gz
+          files:
+            static.tar.gz
+            static.zip
           token: ${{ secrets.TOKEN }}
           generate_release_notes: true
 
