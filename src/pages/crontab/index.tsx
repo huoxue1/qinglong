@@ -440,13 +440,19 @@ const Crontab = () => {
         if (code === 200) {
           const { data, total } = _data;
           setValue(
-            data.map((x) => {
-              return {
-                ...x,
-                nextRunTime: cron_parser
+            data.map((x:any) => {
+              let date;
+              try {
+                date = cron_parser
                   .parseExpression(x.schedule)
                   .next()
-                  .toDate(),
+                  .toDate();
+              }catch (e) {
+                date = new Date();
+              }
+              return {
+                ...x,
+                nextRunTime: date,
               };
             }),
           );
@@ -932,7 +938,7 @@ const Crontab = () => {
       .then(({ code, data }) => {
         if (code === 200) {
           setCronViews(data);
-          setEnabledCronViews(data.filter((x) => !x.isDisabled));
+          setEnabledCronViews(data.filter((x:any) => !x.isDisabled));
         }
       })
       .finally(() => {

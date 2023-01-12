@@ -1,0 +1,33 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'pnpm'
+
+      - name: build front and back
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build:front
+          tar -zcvf static.tar.gz ./static/
+
+      - name: upload
+        uses: AButler/upload-release-assets@v2.0
+        with:
+          files: 'static.tar.gz'
+          repo-token: ${{ secrets.TOKEN }}
+
+

@@ -14,7 +14,7 @@ const errorHandler = function (error: any) {
       ? error.data.message || error.message || error.data
       : error.response.statusText;
     const responseStatus = error.response.status;
-    if ([502, 504].includes(responseStatus)) {
+    if ([502].includes(responseStatus)) {
       history.push('/error');
     } else if (responseStatus === 401) {
       if (history.location.pathname !== '/login') {
@@ -55,7 +55,7 @@ _request.interceptors.request.use((url, options) => {
 
 _request.interceptors.response.use(async (response) => {
   const responseStatus = response.status;
-  if ([502, 504].includes(responseStatus)) {
+  if ([502].includes(responseStatus)) {
     history.push('/error');
   } else if (responseStatus === 401) {
     if (history.location.pathname !== '/login') {
