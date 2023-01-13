@@ -24,12 +24,13 @@ jobs:
           pnpm build:front
           tar -zcvf static.tar.gz ./static/
           zip -r static.zip ./static/
+          ls
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files:
+          files: |
             static.tar.gz
             static.zip
           token: ${{ secrets.TOKEN }}
