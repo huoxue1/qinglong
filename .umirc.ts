@@ -12,11 +12,11 @@ export default defineConfig({
   },
   proxy: {
     '/api/public': {
-      target: 'http://127.0.0.1:5600/',
+      target: 'http://127.0.0.1:5700/',
       changeOrigin: true,
     },
     '/api': {
-      target: 'http://127.0.0.1:5600/',
+      target: 'http://127.0.0.1:5700/',
       changeOrigin: true,
       ws: true,
     },

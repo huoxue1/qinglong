@@ -49,6 +49,7 @@ const LangMap: any = {
   '.js': 'javascript',
   '.sh': 'shell',
   '.ts': 'typescript',
+  '.go': 'go'
 };
 
 const Script = () => {
@@ -136,8 +137,10 @@ const Script = () => {
   const onTreeSelect = useCallback(
     (keys: Key[], e: any) => {
       const content = editorRef.current
-        ? editorRef.current.getValue().replace(/\r\n/g, '\n')
+        ? editorRef.current.getValue()
         : value;
+      console.log(content)
+      console.log(value)
       if (content !== value) {
         Modal.confirm({
           title: `确认离开`,

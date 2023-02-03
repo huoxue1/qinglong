@@ -15,6 +15,7 @@ const LangMap: any = {
   '.js': 'javascript',
   '.sh': 'shell',
   '.ts': 'typescript',
+  '.go': 'go'
 };
 const prefixMap: any = {
   python: '.py',
@@ -29,12 +30,10 @@ const EditModal = ({
   content,
   handleCancel,
   visible,
-  socketMessage,
 }: {
   treeData?: any;
   content?: string;
   visible: boolean;
-  socketMessage: any;
   currentNode: any;
   handleCancel: () => void;
 }) => {
@@ -50,6 +49,8 @@ const EditModal = ({
   const editorRef = useRef<any>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [currentPid, setCurrentPid] = useState(null);
+
+  const [interval,setIntervalPid] = useState<any>(null);
 
   const cancel = () => {
     handleCancel();
@@ -96,9 +97,26 @@ const EditModal = ({
         if (code === 200) {
           setIsRunning(true);
           setCurrentPid(data);
+          getLog(data)
         }
       });
   };
+
+
+  const  getLog = (pid:string) => {
+    let interval = setInterval(()=>{
+      request.get(`${config.apiPrefix}scripts/log?pid=${pid}`).then(({code,data}) => {
+        if (code === 200){
+          setLog(data)
+          if (logEnded(data)){
+            setIsRunning(false)
+            clearInterval(interval)
+          }
+        }
+      })
+    },3000);
+    setIntervalPid(interval)
+  }
 
   const stop = () => {
     if (!cNode || !cNode.title || !currentPid) {
@@ -119,28 +137,28 @@ const EditModal = ({
       });
   };
 
-  useEffect(() => {
-    if (!socketMessage) {
-      return;
-    }
-
-    let { type, message: _message, references } = socketMessage;
-
-    if (type !== 'manuallyRunScript') {
-      return;
-    }
-
-    if (logEnded(_message)) {
-      setTimeout(() => {
-        setIsRunning(false);
-      }, 300);
-    }
-
-    if (log) {
-      _message = `\n${_message}`;
-    }
-    setLog(`${log}${_message}`);
-  }, [socketMessage]);
+  // useEffect(() => {
+  //   if (!socketMessage) {
+  //     return;
+  //   }
+  //
+  //   let { type, message: _message, references } = socketMessage;
+  //
+  //   if (type !== 'manuallyRunScript') {
+  //     return;
+  //   }
+  //
+  //   if (logEnded(_message)) {
+  //     setTimeout(() => {
+  //       setIsRunning(false);
+  //     }, 300);
+  //   }
+  //
+  //   if (log) {
+  //     _message = `\n${_message}`;
+  //   }
+  //   setLog(`${log}${_message}`);
+  // }, [socketMessage]);
 
   useEffect(() => {
     setLog('');
@@ -150,6 +168,9 @@ const EditModal = ({
       setSelectedKey(currentNode.key);
       const newMode = LangMap[currentNode.title.slice(-3)] || '';
       setLanguage(newMode);
+    }
+    return ()=>{
+      clearInterval(interval)
     }
   }, [content, currentNode]);
 
@@ -181,6 +202,7 @@ const EditModal = ({
             <Option value="typescript">typescript</Option>
             <Option value="shell">shell</Option>
             <Option value="python">python</Option>
+            <Option value="go">golang</Option>
           </Select>
           <Button
             type="primary"

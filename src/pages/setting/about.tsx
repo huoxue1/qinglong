@@ -22,48 +22,48 @@ const About = ({ systemInfo }: { systemInfo: SharedContext['systemInfo'] }) => {
       <div className={styles.right}>
         <span className={styles.title}>青龙</span>
         <span className={styles.desc}>
-          支持python3、javaScript、shell、typescript 的定时任务管理面板（A timed
-          task management panel that supports typescript, javaScript, python3,
-          and shell.）
+          基于原版青龙实现的golang魔改版青龙，主要为了学习golang
+          原青龙地址：https://github.com/whyour/qinglong
         </span>
+
         <Descriptions>
           <Descriptions.Item label="版本" span={3}>
             {TVersion[systemInfo.branch]} v{systemInfo.version}
           </Descriptions.Item>
-          <Descriptions.Item label="更新时间" span={3}>
-            {dayjs(systemInfo.lastCommitTime * 1000).format(
-              'YYYY-MM-DD HH:mm:ss',
-            )}
-          </Descriptions.Item>
-          <Descriptions.Item label="更新ID" span={3}>
-            {systemInfo.lastCommitId}
-          </Descriptions.Item>
-          <Descriptions.Item label="更新日志" span={3}>
-            <Link
-              href={`https://qn.whyour.cn/version.yaml?t=${Date.now()}`}
-              target="_blank"
-            >
-              查看
-            </Link>
-          </Descriptions.Item>
+          {/*<Descriptions.Item label="更新时间" span={3}>*/}
+          {/*  {dayjs(systemInfo.lastCommitTime * 1000).format(*/}
+          {/*    'YYYY-MM-DD HH:mm:ss',*/}
+          {/*  )}*/}
+          {/*</Descriptions.Item>*/}
+          {/*<Descriptions.Item label="更新ID" span={3}>*/}
+          {/*  {systemInfo.lastCommitId}*/}
+          {/*</Descriptions.Item>*/}
+          {/*<Descriptions.Item label="更新日志" span={3}>*/}
+          {/*  <Link*/}
+          {/*    href={`https://qn.whyour.cn/version.yaml?t=${Date.now()}`}*/}
+          {/*    target="_blank"*/}
+          {/*  >*/}
+          {/*    查看*/}
+          {/*  </Link>*/}
+          {/*</Descriptions.Item>*/}
         </Descriptions>
         <div>
+          {/*<Link*/}
+          {/*  href="https://github.com/whyour/qinglong"*/}
+          {/*  target="_blank"*/}
+          {/*  style={{ marginRight: 15 }}*/}
+          {/*>*/}
+          {/*  Github*/}
+          {/*</Link>*/}
+          {/*<Link*/}
+          {/*  href="https://t.me/jiao_long"*/}
+          {/*  target="_blank"*/}
+          {/*  style={{ marginRight: 15 }}*/}
+          {/*>*/}
+          {/*  Telegram频道*/}
+          {/*</Link>*/}
           <Link
-            href="https://github.com/whyour/qinglong"
-            target="_blank"
-            style={{ marginRight: 15 }}
-          >
-            Github
-          </Link>
-          <Link
-            href="https://t.me/jiao_long"
-            target="_blank"
-            style={{ marginRight: 15 }}
-          >
-            Telegram频道
-          </Link>
-          <Link
-            href="https://github.com/whyour/qinglong/issues"
+            href="https://github.com/huoxue1/qinglong-go/issues"
             target="_blank"
           >
             提交BUG

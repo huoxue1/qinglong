@@ -373,11 +373,11 @@ const Setting = () => {
             label: '通知设置',
             children: <NotificationSetting data={notificationInfo} />,
           },
-          {
-            key: 'login',
-            label: '登录日志',
-            children: <LoginLog data={loginLogData} />,
-          },
+          // {
+          //   key: 'login',
+          //   label: '登录日志',
+          //   children: <LoginLog data={loginLogData} />,
+          // },
           {
             key: 'other',
             label: '其他设置',
@@ -415,12 +415,12 @@ const Setting = () => {
                     </Button>
                   </Input.Group>
                 </Form.Item>
-                <Form.Item label="检查更新" name="update">
-                  <CheckUpdate
-                    systemInfo={systemInfo}
-                    socketMessage={socketMessage}
-                  />
-                </Form.Item>
+                {/*<Form.Item label="检查更新" name="update">*/}
+                {/*  <CheckUpdate*/}
+                {/*    systemInfo={systemInfo}*/}
+                {/*    socketMessage={socketMessage}*/}
+                {/*  />*/}
+                {/*</Form.Item>*/}
               </Form>
             ),
           },
