@@ -21,7 +21,7 @@ jobs:
       - name: build front and back
         run: |
           pnpm install --frozen-lockfile
-          pnpm build:front
+          pnpm build
           tar -zcvf static.tar.gz ./static/
           zip -r static.zip ./static/
           ls
